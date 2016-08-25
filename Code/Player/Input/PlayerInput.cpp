@@ -135,6 +135,29 @@ void CPlayerInput::Update(SEntityUpdateContext &ctx, int updateSlot)
 		{
 			m_pCursorEntity->SetPosRotScale(hit.pt, IDENTITY, m_pCursorEntity->GetScale());
 		}
+
+        Vec3 dir = ((hit.pt) - m_pPlayer->GetEntity()->GetWorldPos()).GetNormalizedFast();
+        
+        IAttachment* pAttachment = m_pPlayer->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
+
+        QuatT oldTransRot(pAttachment->GetAttAbsoluteDefault());
+        //Quat deltaRot = Quat::CreateRotationZ(DEG2RAD(90));
+        Quat targetRot = Quat::CreateRotationZ(atan2(-dir.x, dir.y) - m_pPlayer->GetEntity()->GetRotation().GetRotZ());
+        Quat newRot = Quat::CreateSlerp(oldTransRot.q, targetRot, ctx.fFrameTime * 10);
+        oldTransRot.q = newRot;
+        pAttachment->SetAttAbsoluteDefault(oldTransRot);
+
+        /*var dir = tankInput.MouseWorldPosition - TurretEntity.Position;
+
+        var ownerRotation = Owner.Rotation;
+        var attachmentRotation = TurretEntity.Rotation;
+
+        rotationZ = Quat.CreateSlerp(rotationZ, Quat.CreateRotationZ((float)Math.Atan2(-dir.X, dir.Y)), Time.DeltaTime * 10);
+
+        attachmentRotation = rotationZ;
+        attachmentRotation.Normalize();
+
+        TurretEntity.Rotation = attachmentRotation;*/
 	}
 	else
 	{
