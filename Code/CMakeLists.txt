@@ -3,8 +3,6 @@ project (TopDownShooterTemplate VERSION 1.0 LANGUAGES CXX)
 
 configure_file ("${PROJECT_NAME}.vcxproj.user.in" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.vcxproj.user")
 
-set (CMAKE_PREFIX_PATH "F://Program Files (x86)//Crytek//CRYENGINE Launcher//Crytek//CRYENGINE_5.2//Tools//CMake//modules")
-
 find_package (CryCommon REQUIRED)
 find_package (CryAction REQUIRED)
 
