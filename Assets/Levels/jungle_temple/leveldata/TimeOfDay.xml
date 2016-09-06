@@ -1,0 +1,5 @@
+<TimeOfDay Time="10.21" TimeStart="0" TimeEnd="23.983334" TimeAnimSpeed="0">
+ <Presets>
+  <Preset Name="libs/environmentpresets/jungle_temple.xml" Default="1"/>
+ </Presets>
+</TimeOfDay>

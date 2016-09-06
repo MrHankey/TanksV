@@ -1,0 +1,8 @@
+<MetaData>
+ <GameRules MP1="SinglePlayer" MP2="DeathMatch"/>
+ <Attributes>
+  <loading_video value=""/>
+  <loading_image value="textures/loadscreens/jungleloadscreen.dds"/>
+  <DescriptionText text="lensflares courtesy of Jake Oliver"/>
+ </Attributes>
+</MetaData>
