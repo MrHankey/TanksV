@@ -5,6 +5,9 @@
 ## CE IGNORE
 
 *.pak
+*.bak
+*.bak2
+*.bak3
 
 /user.cfg
 /system.cfg
