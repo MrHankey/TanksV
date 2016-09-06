@@ -83,7 +83,6 @@ protected:
 	CPlayerInput *m_pInput;
 	CPlayerMovement *m_pMovement;
 	CPlayerView *m_pView;
-	CPlayerAnimations *m_pAnimations;
 
 	bool m_bIsLocalClient;
 	bool m_bAlive;

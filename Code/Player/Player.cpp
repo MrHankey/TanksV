@@ -28,7 +28,6 @@ class CPlayerRegistrator
 		CGameFactory::RegisterGameObjectExtension<CPlayerMovement>("PlayerMovement");
 		CGameFactory::RegisterGameObjectExtension<CPlayerInput>("PlayerInput");
 		CGameFactory::RegisterGameObjectExtension<CPlayerView>("PlayerView");
-		CGameFactory::RegisterGameObjectExtension<CPlayerAnimations>("PlayerAnimations");
 		
 		RegisterCVars();
 	}
@@ -46,9 +45,9 @@ class CPlayerRegistrator
 
 		REGISTER_CVAR2("pl_eyeHeight", &m_playerEyeHeight, 0.935f, VF_CHEAT, "Height of the player's eyes from ground");
 
-		REGISTER_CVAR2("pl_viewDistanceFromPlayer", &m_viewDistanceFromPlayer, 10.f, VF_CHEAT, "Camera distance from player");
+		REGISTER_CVAR2("pl_viewDistanceFromPlayer", &m_viewDistanceFromPlayer, 20.f, VF_CHEAT, "Camera distance from player");
 
-		m_pThirdPersonGeometry = REGISTER_STRING("pl_thirdPersonGeometry", "Objects/Characters/SampleCharacter/thirdperson.cdf", VF_CHEAT, "Sets the third person geometry to load");
+		m_pThirdPersonGeometry = REGISTER_STRING("pl_thirdPersonGeometry", "Objects/tanks/tank_generic_blue.cdf", VF_CHEAT, "Sets the third person geometry to load");
 		
 		m_pThirdPersonMannequinContext = REGISTER_STRING("pl_thirdPersonMannequinContext", "FirstPersonCharacter", VF_CHEAT, "The name of the third person context used in Mannequin");
 		m_pThirdPersonAnimationDatabase = REGISTER_STRING("pl_thirdPersonAnimationDatabase", "Animations/Mannequin/ADB/FirstPerson.adb", VF_CHEAT, "Path to the animation database file to load");
@@ -91,7 +90,6 @@ void CPlayer::PostInit(IGameObject *pGameObject)
 	pGameObject->RegisterExtForEvents(this, requiredEvents, sizeof(requiredEvents) / sizeof(int));
 
 	m_pMovement = static_cast<CPlayerMovement *>(GetGameObject()->AcquireExtension("PlayerMovement"));
-	m_pAnimations = static_cast<CPlayerAnimations *>(GetGameObject()->AcquireExtension("PlayerAnimations"));
 	m_pInput = static_cast<CPlayerInput *>(GetGameObject()->AcquireExtension("PlayerInput"));
 
 	m_pView = static_cast<CPlayerView *>(GetGameObject()->AcquireExtension("PlayerView"));
@@ -206,9 +204,6 @@ void CPlayer::SetPlayerModel()
 {
 	// Load the third person model
 	GetEntity()->LoadCharacter(eGeometry_ThirdPerson, GetCVars().m_pThirdPersonGeometry->GetString());
-	
-	// Do the same for animations so that Mannequin data can be initialized
-	m_pAnimations->OnPlayerModelChanged();
 
 	// Now create the physical representation of the entity
 	m_pMovement->Physicalize();
