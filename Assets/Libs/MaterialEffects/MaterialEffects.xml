@@ -15,8 +15,8 @@
   <AllowPNG/>
  </OfficeDocumentSettings>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>12210</WindowHeight>
-  <WindowWidth>28800</WindowWidth>
+  <WindowHeight>7890</WindowHeight>
+  <WindowWidth>21570</WindowWidth>
   <WindowTopX>0</WindowTopX>
   <WindowTopY>0</WindowTopY>
   <RefModeR1C1/>
@@ -34,14 +34,24 @@
   </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
-  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="3" x:FullColumns="1"
-   x:FullRows="1" ss:DefaultRowHeight="15">
+  <Table ss:ExpandedColumnCount="13" ss:ExpandedRowCount="13" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="66" ss:DefaultRowHeight="15">
    <Column ss:AutoFitWidth="0" ss:Width="78"/>
    <Column ss:AutoFitWidth="0" ss:Width="105"/>
    <Column ss:AutoFitWidth="0" ss:Width="93"/>
    <Row ss:AutoFitHeight="0">
     <Cell ss:Index="2"><Data ss:Type="String">mat_default</Data></Cell>
     <Cell><Data ss:Type="String">mat_bullet</Data></Cell>
+    <Cell><Data ss:Type="String">mat_grass</Data></Cell>
+    <Cell><Data ss:Type="String">mat_wood</Data></Cell>
+    <Cell><Data ss:Type="String">mat_rock</Data></Cell>
+    <Cell><Data ss:Type="String">mat_soil</Data></Cell>
+    <Cell><Data ss:Type="String">mat_water</Data></Cell>
+    <Cell><Data ss:Type="String">mat_metal</Data></Cell>
+    <Cell><Data ss:Type="String">mat_nodraw</Data></Cell>
+    <Cell><Data ss:Type="String">mat_metal_thick</Data></Cell>
+    <Cell><Data ss:Type="String">mat_concrete</Data></Cell>
+    <Cell><Data ss:Type="String">mat_fabric</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="String">mat_default</Data></Cell>
@@ -50,6 +60,36 @@
     <Cell><Data ss:Type="String">mat_bullet</Data></Cell>
     <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
     <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_grass</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_wood</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_rock</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_soil</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_water</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_metal</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_nodraw</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_metal_thick</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_concrete</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">mat_fabric</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -63,7 +103,6 @@
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>13</ActiveRow>
      <ActiveCol>12</ActiveCol>
     </Pane>
    </Panes>

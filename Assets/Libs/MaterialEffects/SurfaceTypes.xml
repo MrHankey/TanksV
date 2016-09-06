@@ -11,5 +11,47 @@
  <SurfaceType name="mat_bullet">
   <Physics friction="0.1" />
  </SurfaceType>
+
+ <SurfaceType name="mat_grass">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+ <SurfaceType name="mat_wood">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+ 
+ <SurfaceType name="mat_rock">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+ <SurfaceType name="mat_soil">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+ <SurfaceType name="mat_water">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+ <SurfaceType name="mat_metal">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+ <SurfaceType name="mat_nodraw">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+ <SurfaceType name="mat_metal_thick">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+ <SurfaceType name="mat_concrete">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+ <SurfaceType name="mat_fabric">
+  <Physics sound_obstruction="0.5" />
+ </SurfaceType>
+
+
  
 </SurfaceTypes>
