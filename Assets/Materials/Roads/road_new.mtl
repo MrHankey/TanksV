@@ -1,0 +1,8 @@
+<Material MtlFlags="524288" Shader="Illum" GenMask="30400000" StringGenMask="%NORMAL_MAP%SPECULAR_MAP%SUBSURFACE_SCATTERING" SurfaceType="mat_soil" MatTemplate="" Diffuse="0.50888133,0.50888133,0.50888133" Specular="0,0,0" Opacity="1" Shininess="10" CloakAmount="0" vertModifType="0" LayerAct="1">
+ <Textures>
+  <Texture Map="Diffuse" File="Objects/tank_env_assets/templetilesets/Roadtexture/road_diff.dds"/>
+  <Texture Map="Bumpmap" File="Objects/tank_env_assets/templetilesets/Roadtexture/road_ddn.dds"/>
+  <Texture Map="Specular" File="Objects/tank_env_assets/templetilesets/Roadtexture/road_spec.dds"/>
+ </Textures>
+ <PublicParams EmittanceMapGamma="1" SSSIndex="0"/>
+</Material>
