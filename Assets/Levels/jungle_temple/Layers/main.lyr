@@ -235,13 +235,6 @@
     <CollisionFiltering />
    </Object>
    <Object Type="Decal" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{A9A4A22A-FEF6-42A0-927C-B1AC2469E953}" Name="Decal6" Pos="484.85788,551.55469,20.274706" FloorNumber="-1" Rotate="0.96592581,0,0,0.25881904" Scale="2.7024999,2.7024999,2.7024999" ColorRGB="16744319" Material="Objects/tank_env_assets/templetilesets/Decals/muddy_decal_4" ProjectionType="3" Deferred="0" ViewDistRatio="100" SortPriority="16" ProjectionDepth="1" RndFlags="0"/>
-   <Object Type="Entity" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{8827D72A-9A15-44C9-BD1A-C021937AFE27}" Name="EnvironmentLight1" Pos="444.58755,505.60165,46.840118" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="EnvironmentLight" HasEntity="1">
-    <Properties Active="1" BoxSizeX="1618.39" BoxSizeY="1688.32" BoxSizeZ="1898.11">
-     <Projection BoxProject="1" BoxWidth="2807.2" BoxHeight="3016.99" BoxLength="2947.06"/>
-     <Options IgnoreVisAreas="0" SortPriority="0" AttentuationFalloffMax="1"/>
-     <Advanced Cubemap="Textures/cubemaps/example/environmentprobe1_cm.dds"/>
-    </Properties>
-   </Object>
    <Object Type="Entity" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{EA822C2B-F76D-4E8A-AC5A-371A854F41B8}" Name="Rigidbody42" Pos="494.52283,538.90173,19.999998" FloorNumber="-1" Rotate="0.79335332,0,0,0.60876143" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="RigidBody" HasEntity="1">
     <Properties Model="Objects/tank_env_assets/scifi/yellowcrate.cgf" Mass="20"/>
    </Object>
@@ -460,6 +453,13 @@
     <CollisionFiltering />
    </Object>
    <Object Type="Decal" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{91743953-B949-4FE3-A77F-69225362E615}" Name="Decal69" Pos="433.64304,462.39136,19.853329" FloorNumber="-1" Rotate="0.88701087,0,0,0.4617486" Scale="2.88627,2.88627,2.8862698" ColorRGB="16744319" Material="Objects/tank_env_assets/templetilesets/Decals/muddy_decal_3" ProjectionType="3" Deferred="0" ViewDistRatio="100" SortPriority="16" ProjectionDepth="1" RndFlags="0"/>
+   <Object Type="EnvironmentProbe" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{AFF6BC53-9B2F-46EA-B830-1BD6DAAF7DC7}" Name="EnvironmentProbe1" Pos="478.14392,485.89539,20.000084" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="65535" cubemap_resolution="256" preview_cubemap="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="EnvironmentLight" HasEntity="1">
+    <Properties Active="1" BoxSizeX="200" BoxSizeY="200" BoxSizeZ="50">
+     <Projection BoxProject="1" BoxWidth="200" BoxHeight="200" BoxLength="50"/>
+     <Options IgnoreVisAreas="0" SortPriority="0" AttentuationFalloffMax="1"/>
+     <Advanced Cubemap="Textures/cubemaps/jungle_temple/environmentprobe1_cm.dds"/>
+    </Properties>
+   </Object>
    <Object Type="Brush" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{17AEDD53-71DA-44BF-A567-32AAF280F6C4}" Name="templewall10m32" Pos="434.49997,567,19.999998" FloorNumber="-1" Rotate="-4.3711388e-08,0,0,1" ColorRGB="16777215" MatLayersMask="0" Prefab="objects/tank_env_assets/templetilesets/templewall15m_cross.cgf" OutdoorOnly="0" CastShadowMaps="1" RainOccluder="1" SupportSecondVisarea="0" DynamicDistanceShadows="0" Hideable="0" LodRatio="100" ViewDistRatio="100" NotTriangulate="0" NoDynamicWater="0" AIRadius="-1" NoStaticDecals="0" NoAmnbShadowCaster="0" RecvWind="0" Occluder="0" DrawLast="0" ShadowLodBias="0" RndFlags="1610612744">
     <CollisionFiltering />
    </Object>
@@ -1040,6 +1040,13 @@
    <Object Type="Entity" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{14993CEC-B7B0-40B8-8A02-8FFAF620A635}" Name="CollectibleHolder2" Pos="510.99997,487.49994,19.999998" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="CollectibleHolder" HasEntity="0"/>
    <Object Type="GeomEntity" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{91C2C0EC-A8BC-4263-8745-90E31BE08721}" Name="GeomEntity2" Pos="461.85962,536.30115,19.999998" FloorNumber="-1" Rotate="0.93969262,0,0,0.34202015" ColorRGB="65535" MatLayersMask="0" Geometry="objects/tank_env_assets/templetilesets/groundrocks/rock_1.cgf" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="GeomEntity" HasEntity="1"/>
    <Object Type="Entity" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{A1771CEE-DDFA-46B4-AC1D-79C2187E8539}" Name="SpawnPoint9" Pos="484.98792,547.74927,20" FloorNumber="-1" Rotate="-0.13052614,0,0,0.99144489" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="SpawnPoint" HasEntity="1"/>
+   <Object Type="Entity" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{4EA29FEE-40BF-42A0-BBFF-2823D075FEFA}" Name="EnvironmentLight1" Pos="479.21075,481.62558,20.000099" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="EnvironmentLight" HasEntity="1">
+    <Properties Active="1" BoxSizeX="200" BoxSizeY="200" BoxSizeZ="50">
+     <Projection BoxProject="1" BoxWidth="200" BoxHeight="200" BoxLength="50"/>
+     <Options IgnoreVisAreas="0" SortPriority="0" AttentuationFalloffMax="1"/>
+     <Advanced Cubemap="Textures/cubemaps/example/environmentprobe1_cm.dds"/>
+    </Properties>
+   </Object>
    <Object Type="Road" Layer="Main" LayerGUID="{474ACFC7-73FD-4221-A207-0FFC968CC3C8}" Id="{C1F65DEF-C9A0-49FF-AE7E-1EA0DD09932D}" Name="Road2" Pos="459.75,532,20" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="16763904" Material="Materials/Roads/road_new" Width="6" BorderWidth="6" EraseVegWidth="3" EraseVegWidthVar="0" StepSize="4" ViewDistRatio="100" TileLength="4" SortPriority="0" IgnoreTerrainHoles="0" Physicalize="0">
     <Points>
      <Point Pos="0,0,0" Back="0,0,0" Forw="-1.5454701,3.4419649,0.040264849" Angle="0" Width="0" IsDefaultWidth="1"/>

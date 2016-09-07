@@ -252,7 +252,7 @@ bool CPlayerInput::OnActionShoot(EntityId entityId, const ActionId& actionId, in
 
 		if (pWeapon != nullptr && pCharacter != nullptr)
 		{
-			auto *pBarrelOutAttachment = pCharacter->GetIAttachmentManager()->GetInterfaceByName("barrel_out");
+			auto *pBarrelOutAttachment = pCharacter->GetIAttachmentManager()->GetInterfaceByName("turret");
 
 			if (pBarrelOutAttachment != nullptr)
 			{
