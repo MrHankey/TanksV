@@ -88,6 +88,8 @@ set (SourceGroup_Player
 	"Player/Player.cpp"
 	"Player/Player.h"
 	"Player/ISimpleActor.h"
+	"Player/Turret.cpp"
+	"Player/Turret.h"
 )
 source_group("Player" FILES ${SourceGroup_Player})
 
