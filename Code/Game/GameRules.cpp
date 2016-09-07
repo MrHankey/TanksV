@@ -79,6 +79,12 @@ bool CGameRules::OnClientEnteredGame(int channelId, bool isReset)
 	{
 		// Trigger actor revive
 		pActor->SetHealth(pActor->GetMaxHealth());
+
+		// Hide player if in Editor
+		if (gEnv->IsEditor())
+		{
+			pActor->GetEntity()->Hide(true);
+		}
 	}
 
 	return true;
