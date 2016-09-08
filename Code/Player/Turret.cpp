@@ -29,7 +29,7 @@ void CTurret::PostInit(IGameObject *pGameObject)
 	// Set the model
 	const int geometrySlot = 0;
 
-	LoadMesh(geometrySlot, g_bulletRegistrator.m_pGeometry->GetString());
+	LoadMesh(geometrySlot, "Objects/tanks/turret_heavy.chr");
 
 	// Now create the physical representation of the entity
 	Physicalize();

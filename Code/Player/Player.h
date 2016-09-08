@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Player/ISimpleActor.h"
+#include "Player/Turret.h"
 
 #include <CryMath/Cry_Camera.h>
 
@@ -83,6 +84,8 @@ protected:
 	CPlayerInput *m_pInput;
 	CPlayerMovement *m_pMovement;
 	CPlayerView *m_pView;
+
+    CTurret* m_pTurret;
 
 	bool m_bIsLocalClient;
 	bool m_bAlive;

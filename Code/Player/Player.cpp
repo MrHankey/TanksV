@@ -205,6 +205,28 @@ void CPlayer::SetPlayerModel()
 	// Load the third person model
 	GetEntity()->LoadCharacter(eGeometry_ThirdPerson, GetCVars().m_pThirdPersonGeometry->GetString());
 
+    IAttachment* pAttachment = GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
+    if (pAttachment)
+    {
+
+        SEntitySpawnParams spawnParams;
+        spawnParams.pClass = gEnv->pEntitySystem->GetClassRegistry()->FindClass("Turret");
+
+        spawnParams.vPosition = Vec3(IDENTITY);
+        spawnParams.qRotation = Quat(IDENTITY);
+
+        spawnParams.vScale = Vec3(IDENTITY);
+
+        IEntity* pTurretEntity = gEnv->pEntitySystem->SpawnEntity(spawnParams);
+
+        pAttachment->ClearBinding();
+
+        CEntityAttachment *pEntityAttachment = new CEntityAttachment();
+        pEntityAttachment->SetEntityId(pTurretEntity->GetId());
+
+        pAttachment->AddBinding(pEntityAttachment);
+    }
+
 	// Now create the physical representation of the entity
 	m_pMovement->Physicalize();
 }
