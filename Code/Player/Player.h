@@ -69,6 +69,7 @@ public:
 	CPlayerMovement *GetMovement() const { return m_pMovement; }
 
 	ISimpleWeapon *GetCurrentWeapon() const { return m_pCurrentWeapon; }
+	CTurret *GetTurret() const { return m_pTurret; }
 
 	const bool IsLocalClient() const { return m_bIsLocalClient; }
 

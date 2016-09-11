@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entities/Helpers/ISimpleExtension.h"
+#include "TankTread.h"
 
 class CPlayer;
 
@@ -33,6 +34,9 @@ protected:
 
 protected:
 	CPlayer *m_pPlayer;
+
+	CTankTread* m_pLeftTread;
+	CTankTread* m_pRightTread;
 
 	bool m_bOnGround;
 	Vec3 m_groundNormal;

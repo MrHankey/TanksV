@@ -108,6 +108,8 @@ source_group("Player\\Input" FILES ${SourceGroup_PlayerInput})
 set (SourceGroup_PlayerMovement
 	"Player/Movement/PlayerMovement.cpp"
 	"Player/Movement/PlayerMovement.h"
+	"Player/Movement/TankTread.cpp"
+	"Player/Movement/TankTread.h"
 )
 source_group("Player\\Movement" FILES ${SourceGroup_PlayerMovement})
 

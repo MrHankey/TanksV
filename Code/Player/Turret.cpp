@@ -29,12 +29,13 @@ void CTurret::PostInit(IGameObject *pGameObject)
 	// Set the model
 	const int geometrySlot = 0;
 
-	LoadMesh(geometrySlot, "Objects/tanks/turret_heavy.chr");
+	//LoadMesh(geometrySlot, "Objects/tanks/turret_heavy.chr");
+	GetEntity()->LoadCharacter(geometrySlot, "Objects/tanks/turret_heavy.chr");
 
 	// Now create the physical representation of the entity
 	Physicalize();
 
-	// Make sure that bullets are always rendered regardless of distance
+	// Make sure that turrets are always rendered regardless of distance
 	if (auto *pRenderProxy = static_cast<IEntityRenderProxy *>(GetEntity()->GetProxy(ENTITY_PROXY_RENDER)))
 	{
 		// Ratio is 0 - 255, 255 being 100% visibility

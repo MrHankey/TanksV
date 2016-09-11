@@ -64,6 +64,7 @@ CPlayer::CPlayer()
 	, m_bAlive(false)
 	, m_bIsLocalClient(false)
 	, m_pCurrentWeapon(nullptr)
+	, m_pTurret(nullptr)
 {
 }
 
@@ -208,16 +209,35 @@ void CPlayer::SetPlayerModel()
     IAttachment* pAttachment = GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
     if (pAttachment)
     {
-
+		// Spawn turret entity
         SEntitySpawnParams spawnParams;
         spawnParams.pClass = gEnv->pEntitySystem->GetClassRegistry()->FindClass("Turret");
 
         spawnParams.vPosition = Vec3(IDENTITY);
         spawnParams.qRotation = Quat(IDENTITY);
-
         spawnParams.vScale = Vec3(IDENTITY);
 
         IEntity* pTurretEntity = gEnv->pEntitySystem->SpawnEntity(spawnParams);
+
+		// Now acquire the game object for this entity
+		if (auto *pGameObject = gEnv->pGame->GetIGameFramework()->GetGameObject(pTurretEntity->GetId()))
+		{
+			// Obtain our ISimpleWeapon implementation, based on IGameObjectExtension
+			if (auto *pTurret = pGameObject->QueryExtension("Turret"))
+			{
+				// Set the equipped weapon
+				m_pTurret = static_cast<CTurret *>(pTurret);
+			}
+			else
+			{
+				CryWarning(VALIDATOR_MODULE_GAME, VALIDATOR_ERROR, "Failed to query game object extension for turret!");
+			}
+		}
+		else
+		{
+			CryWarning(VALIDATOR_MODULE_GAME, VALIDATOR_ERROR, "Spawned turret but failed to get game object!");
+		}
+
 
         pAttachment->ClearBinding();
 

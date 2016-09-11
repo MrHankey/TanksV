@@ -250,9 +250,26 @@ bool CPlayerInput::OnActionShoot(EntityId entityId, const ActionId& actionId, in
 		// Another approach would be to use Aim IK and adjust aim based on where the player is aiming with the cursor
 
 		auto *pWeapon = m_pPlayer->GetCurrentWeapon();
-		auto *pCharacter = GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson);
 
-		if (pWeapon != nullptr && pCharacter != nullptr)
+		auto *pTurret = m_pPlayer->GetTurret();
+		if ( pTurret != nullptr &&  pWeapon != nullptr)
+		{
+			auto *pTurretCharacter = pTurret->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson);
+			if ( pTurretCharacter != nullptr )
+			{
+				auto *pBarrelAttachment = pTurretCharacter->GetIAttachmentManager()->GetInterfaceByName("turret_term");
+				if (pBarrelAttachment != nullptr)
+				{
+					QuatTS bulletOrigin = pBarrelAttachment->GetAttWorldAbsolute();
+
+					pWeapon->RequestFire(bulletOrigin.t, bulletOrigin.q);
+				}
+			}
+			
+		}
+		
+
+		/*if (pWeapon != nullptr && pCharacter != nullptr)
 		{
 			auto *pBarrelOutAttachment = pCharacter->GetIAttachmentManager()->GetInterfaceByName("turret");
 
@@ -262,7 +279,7 @@ bool CPlayerInput::OnActionShoot(EntityId entityId, const ActionId& actionId, in
 
 				pWeapon->RequestFire(bulletOrigin.t, bulletOrigin.q);
 			}
-		}
+		}*/
 	}
 
 	return true;

@@ -7,6 +7,14 @@
 CPlayerMovement::CPlayerMovement()
 	: m_bOnGround(false)
 {
+	m_pLeftTread = new CTankTread(500);
+	m_pRightTread = new CTankTread(500);
+}
+
+CPlayerMovement::~CPlayerMovement()
+{
+	delete m_pLeftTread;
+	delete m_pRightTread;
 }
 
 void CPlayerMovement::PostInit(IGameObject *pGameObject)
