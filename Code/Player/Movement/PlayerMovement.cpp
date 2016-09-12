@@ -23,7 +23,8 @@ void CPlayerMovement::PostInit(IGameObject *pGameObject)
 
 	// Make sure that this extension is updated regularly via the Update function below
 	pGameObject->EnableUpdateSlot(this, 0);
-    pGameObject->EnablePostUpdates(this);
+    //pGameObject->EnablePostUpdates(this);
+	RegisterEvent(ENTITY_EVENT_PREPHYSICSUPDATE, IComponent::EComponentFlags_Enable);
 }
 
 void CPlayerMovement::PostUpdate(float frameTime)
@@ -84,6 +85,27 @@ void CPlayerMovement::Update(SEntityUpdateContext &ctx, int updateSlot)
 	UpdateMovementRequest(ctx.fFrameTime, *pPhysicalEntity);    
 }
 
+void CPlayerMovement::ProcessEvent(SEntityEvent & event)
+{
+	switch (event.event)
+	{
+	case ENTITY_EVENT_PREPHYSICSUPDATE:
+		if (m_qQueuedRotation.IsValid())
+		{
+			GetEntity()->SetRotation(m_qQueuedRotation, ENTITY_XFORM_USER | ENTITY_XFORM_NOT_REREGISTER);
+		}
+		if (m_qQueuedTurretRotation.IsValid())
+		{
+			IAttachment* pAttachment = m_pPlayer->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
+			if (pAttachment)
+			{
+				pAttachment->SetAttAbsoluteDefault(m_qQueuedTurretRotation);
+			}
+		}
+		break;
+	}
+}
+
 void CPlayerMovement::GetLatestPhysicsStats(IPhysicalEntity &physicalEntity)
 {
 	pe_status_living livingStatus;
@@ -121,7 +143,7 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
     float totalMomentum = fForceLeft*m_pLeftTread->GetLocalPosition().x + fForceRight*m_pRightTread->GetLocalPosition().x;
     float angularAcceleration = totalMomentum / momentumInertia;
 
-    Quat turnRot = Quat::CreateRotationZ(angularAcceleration * frameTime);
+    Quat turnRot = Quat::CreateRotationZ(angularAcceleration * frameTime );
     Quat newRotation = turnRot;
 
     Vec3 slopeProjection = Vec3::CreateProjection(prevRotation.GetInverted().GetColumn1(), m_groundNormal);
@@ -133,7 +155,23 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
     newRotation = prevRotation * turnRot;// *Quat::CreateRotationVDir(slopeProjection);
     newRotation.Normalize();
 
-    GetEntity()->SetWorldTM(Matrix34::Create(Vec3(1.0f), newRotation, GetEntity()->GetWorldPos()));
+	m_qQueuedRotation = newRotation;
+
+	// TURRET ROTATION
+	Vec3 cursorPos = m_pPlayer->GetInput()->GetWorldCursorPosition();
+	Vec3 dir = ((cursorPos)-m_pPlayer->GetEntity()->GetWorldPos()).GetNormalizedFast();
+
+	IAttachment* pAttachment = m_pPlayer->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
+	if (pAttachment)
+	{
+		QuatT oldTransRot(pAttachment->GetAttAbsoluteDefault());
+		//Quat deltaRot = Quat::CreateRotationZ(DEG2RAD(90));
+		Quat targetRot = Quat::CreateRotationZ(atan2(-dir.x, dir.y) - m_qQueuedRotation.GetRotZ());
+		Quat newRot = Quat::CreateSlerp(oldTransRot.q, targetRot, frameTime * 10);
+		oldTransRot.q = newRot;
+		m_qQueuedTurretRotation = oldTransRot;
+	}
+	
 
     // VELOCITY
     Vec3 forwardDir = prevRotation.GetColumn1().GetNormalized();
@@ -150,26 +188,13 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
     //F = m*a
     float acceleration = (totalForce / mass);
     Vec3 forwardAcceleration = forwardDir * acceleration;// *GameCVars.tank_movementSpeedMult;
+	if (!m_bOnGround)
+		forwardAcceleration = Vec3(ZERO);
 
                                                         //TODO: Do proper tread-dependant friction and calculation
     Vec3 frictionDeceleration = (normalizedVelocity * velocityRatio) * (float)(groundFriction * abs(9.81f) * cos(slopeAngle));
 
     Vec3 dragDeceleration = (dragCoefficient * frontalArea * AirDensity * (normalizedVelocity * (float)pow(m_vecVelocity.GetLength(), 2))) / (2 * mass);
-
-    // TURRET ROTATION
-    Vec3 cursorPos = m_pPlayer->GetInput()->GetWorldCursorPosition();
-    Vec3 dir = ((cursorPos) - m_pPlayer->GetEntity()->GetWorldPos()).GetNormalizedFast();
-
-    IAttachment* pAttachment = m_pPlayer->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
-    if (pAttachment)
-    {
-        QuatT oldTransRot(pAttachment->GetAttAbsoluteDefault());
-        //Quat deltaRot = Quat::CreateRotationZ(DEG2RAD(90));
-        Quat targetRot = Quat::CreateRotationZ(atan2(-dir.x, dir.y) - newRotation.GetRotZ());
-        Quat newRot = Quat::CreateSlerp(oldTransRot.q, targetRot, frameTime * 10);
-        oldTransRot.q = newRot;
-        pAttachment->SetAttAbsoluteDefault(oldTransRot);
-    }
 
     if (true)
     {
@@ -183,7 +208,6 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
         gEnv->pRenderer->Draw2dLabel(100, 160, 1.3f, Col_Blue, false, "lThrottle: %f rThrottle: %f", m_pLeftTread->GetThrottle(), m_pRightTread->GetThrottle());
         gEnv->pRenderer->Draw2dLabel(100, 170, 1.3f, Col_White, false, "slopeX: %f slopeY: %f slopeZ: %f", slopeProjection.x, slopeProjection.y, slopeProjection.z);
     }
-
 
     pe_action_move moveAction;
 

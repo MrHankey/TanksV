@@ -18,6 +18,7 @@ public:
 	virtual void PostInit(IGameObject* pGameObject) override;
     virtual void PostUpdate(float frameTime) override;
 	virtual void Update(SEntityUpdateContext& ctx, int updateSlot) override;
+	virtual void ProcessEvent(SEntityEvent& event) override;
 	//~ISimpleExtension
 
 	void Physicalize();
@@ -42,4 +43,6 @@ protected:
 	bool m_bOnGround;
 	Vec3 m_groundNormal;
     Vec3 m_vecVelocity;
+	Quat m_qQueuedRotation;
+	QuatT m_qQueuedTurretRotation;
 };
