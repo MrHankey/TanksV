@@ -191,10 +191,12 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
 	if (!m_bOnGround)
 		forwardAcceleration = Vec3(ZERO);
 
-                                                        //TODO: Do proper tread-dependant friction and calculation
+    //TODO: Do proper tread-dependant friction and calculation
     Vec3 frictionDeceleration = (normalizedVelocity * velocityRatio) * (float)(groundFriction * abs(9.81f) * cos(slopeAngle));
 
     Vec3 dragDeceleration = (dragCoefficient * frontalArea * AirDensity * (normalizedVelocity * (float)pow(m_vecVelocity.GetLength(), 2))) / (2 * mass);
+
+    Vec3 gravityAcceleration = Vec3(0, 0, -9.81)*frameTime;
 
     if (true)
     {
@@ -217,7 +219,7 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
     //const float moveSpeed = m_pPlayer->GetCVars().m_moveSpeed;
     //moveAction.dir = GetLocalMoveDirection() * moveSpeed * frameTime;
 
-    moveAction.dir = m_vecVelocity + (forwardAcceleration - frictionDeceleration - dragDeceleration);
+    moveAction.dir = m_vecVelocity + (forwardAcceleration - frictionDeceleration - dragDeceleration + gravityAcceleration);
 
     // Dispatch the movement request
     physicalEntity.Action(&moveAction);
