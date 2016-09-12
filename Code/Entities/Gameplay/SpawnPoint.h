@@ -9,6 +9,13 @@ class CSpawnPoint : public CGameObjectExtensionHelper<CSpawnPoint, CNativeEntity
 {
 public:
 	virtual ~CSpawnPoint() {}
+    void SpawnEntity(IEntity &otherEntity);
 
-	void SpawnEntity(IEntity &otherEntity);
+    // ISimpleExtension	
+    virtual void ProcessEvent(SEntityEvent &event) override;
+    // ~ISimpleExtension
+
+private:
+    
+    void Reset();
 };
