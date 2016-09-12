@@ -187,7 +187,7 @@ int CGameStartup::Run(const char* autoStartLevelName)
 	}
 	else if(!gEnv->IsDedicated())
 	{
-		gEnv->pConsole->ExecuteString("map example s");
+		gEnv->pConsole->ExecuteString("map jungle_temple s");
 	}
 
 #if CRY_PLATFORM_WINDOWS

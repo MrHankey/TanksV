@@ -233,40 +233,15 @@ bool CPlayerInput::OnActionShoot(EntityId entityId, const ActionId& actionId, in
 	// Only fire on press, not release
 	if (activationMode == eIS_Pressed)
 	{
-		// Note that we always fire from the barrel position
-		// Another approach would be to use Aim IK and adjust aim based on where the player is aiming with the cursor
+		//TODO: fix firing from "turret_term" attachment
 
-		auto *pWeapon = m_pPlayer->GetCurrentWeapon();
+		Quat turretRot = m_pPlayer->GetTurret()->GetEntity()->GetWorldRotation();
+		Vec3 turretDir = turretRot.GetColumn1().GetNormalized();
 
-		auto *pTurret = m_pPlayer->GetTurret();
-		if ( pTurret != nullptr &&  pWeapon != nullptr)
-		{
-			auto *pTurretCharacter = pTurret->GetEntity()->GetCharacter(0);
-			if ( pTurretCharacter != nullptr )
-			{
-                auto *pBarrelAttachment = pTurretCharacter->GetIAttachmentManager()->GetProxyInterfaceByName("turret_term");
-				if (pBarrelAttachment != nullptr)
-				{
-					QuatTS bulletOrigin = pBarrelAttachment->GetProxyAbsoluteDefault();
+		QuatT bulletOrigin = QuatT(turretRot, m_pPlayer->GetTurret()->GetEntity()->GetWorldPos() + 3.0f*turretDir);
 
-					pWeapon->RequestFire(bulletOrigin.t, bulletOrigin.q);
-				}
-			}
-			
-		}
-		
-
-		/*if (pWeapon != nullptr && pCharacter != nullptr)
-		{
-			auto *pBarrelOutAttachment = pCharacter->GetIAttachmentManager()->GetInterfaceByName("turret");
-
-			if (pBarrelOutAttachment != nullptr)
-			{
-				QuatTS bulletOrigin = pBarrelOutAttachment->GetAttWorldAbsolute();
-
-				pWeapon->RequestFire(bulletOrigin.t, bulletOrigin.q);
-			}
-		}*/
+		auto* pWeapon = m_pPlayer->GetCurrentWeapon();
+		pWeapon->RequestFire(bulletOrigin.t, bulletOrigin.q);
 	}
 
 	return true;
