@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.6.0)
-project (TopDownShooterTemplate VERSION 1.0 LANGUAGES CXX)
+project (TanksV VERSION 1.0 LANGUAGES CXX)
 
 configure_file ("${PROJECT_NAME}.vcxproj.user.in" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.vcxproj.user")
 

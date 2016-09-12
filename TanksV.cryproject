@@ -8,16 +8,16 @@
         ],
         "libs": [
             {
-                "name": "TopDownShooterTemplate",
+                "name": "TanksV",
                 "shared": {
-                    "win_x64": "bin/win_x64/TopDownShooterTemplate.dll",
-                    "win_x86": "bin/win_x86/TopDownShooterTemplate.dll"
+                    "win_x64": "bin/win_x64/TanksV.dll",
+                    "win_x86": "bin/win_x86/TanksV.dll"
                 }
             }
         ]
     },
     "info": {
-        "name": "Top-Down Shooter Game Template"
+        "name": "Tanks for CryEngine V"
     },
     "require": {
         "engine": "engine-5.2"
