@@ -136,19 +136,6 @@ void CPlayerInput::Update(SEntityUpdateContext &ctx, int updateSlot)
 			m_pCursorEntity->SetPosRotScale(hit.pt, IDENTITY, m_pCursorEntity->GetScale());
 		}
 
-        Vec3 dir = ((hit.pt) - m_pPlayer->GetEntity()->GetWorldPos()).GetNormalizedFast();
-        
-        IAttachment* pAttachment = m_pPlayer->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
-		if (pAttachment)
-		{
-			QuatT oldTransRot(pAttachment->GetAttAbsoluteDefault());
-			//Quat deltaRot = Quat::CreateRotationZ(DEG2RAD(90));
-			Quat targetRot = Quat::CreateRotationZ(atan2(-dir.x, dir.y) - m_pPlayer->GetEntity()->GetRotation().GetRotZ());
-			Quat newRot = Quat::CreateSlerp(oldTransRot.q, targetRot, ctx.fFrameTime * 10);
-			oldTransRot.q = newRot;
-			pAttachment->SetAttAbsoluteDefault(oldTransRot);
-		}
-
         /*var dir = tankInput.MouseWorldPosition - TurretEntity.Position;
 
         var ownerRotation = Owner.Rotation;
@@ -254,13 +241,13 @@ bool CPlayerInput::OnActionShoot(EntityId entityId, const ActionId& actionId, in
 		auto *pTurret = m_pPlayer->GetTurret();
 		if ( pTurret != nullptr &&  pWeapon != nullptr)
 		{
-			auto *pTurretCharacter = pTurret->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson);
+			auto *pTurretCharacter = pTurret->GetEntity()->GetCharacter(0);
 			if ( pTurretCharacter != nullptr )
 			{
-				auto *pBarrelAttachment = pTurretCharacter->GetIAttachmentManager()->GetInterfaceByName("turret_term");
+                auto *pBarrelAttachment = pTurretCharacter->GetIAttachmentManager()->GetProxyInterfaceByName("turret_term");
 				if (pBarrelAttachment != nullptr)
 				{
-					QuatTS bulletOrigin = pBarrelAttachment->GetAttWorldAbsolute();
+					QuatTS bulletOrigin = pBarrelAttachment->GetProxyAbsoluteDefault();
 
 					pWeapon->RequestFire(bulletOrigin.t, bulletOrigin.q);
 				}

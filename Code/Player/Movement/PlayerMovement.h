@@ -12,11 +12,11 @@ class CPlayerMovement : public CGameObjectExtensionHelper<CPlayerMovement, ISimp
 {
 public:
 	CPlayerMovement();
-	virtual ~CPlayerMovement() {}
+    virtual ~CPlayerMovement();
 
 	//ISimpleExtension
 	virtual void PostInit(IGameObject* pGameObject) override;
-
+    virtual void PostUpdate(float frameTime) override;
 	virtual void Update(SEntityUpdateContext& ctx, int updateSlot) override;
 	//~ISimpleExtension
 
@@ -24,6 +24,7 @@ public:
 
 	// Gets the requested movement direction based on input data
 	Vec3 GetLocalMoveDirection() const;
+    void UpdateTreads(float frameTime);
 	bool IsOnGround() const { return m_bOnGround; }
 	Vec3 GetGroundNormal() const { return m_groundNormal; }
 
@@ -40,4 +41,5 @@ protected:
 
 	bool m_bOnGround;
 	Vec3 m_groundNormal;
+    Vec3 m_vecVelocity;
 };
