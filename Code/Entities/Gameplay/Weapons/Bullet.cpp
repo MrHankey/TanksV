@@ -79,7 +79,24 @@ void CBullet::HandleEvent(const SGameObjectEvent &event)
 	if (event.event == eGFE_OnCollision)
 	{
 		// Collision info can be retrieved using the event pointer
-		//EventPhysCollision *physCollision = reinterpret_cast<EventPhysCollision *>(event.ptr);
+		EventPhysCollision *physCollision = reinterpret_cast<EventPhysCollision *>(event.ptr);
+
+        pe_explosion explosion;
+        explosion.epicenter = physCollision->pt;
+        explosion.epicenterImp = explosion.epicenter;
+        explosion.explDir = physCollision->vloc[0].GetNormalizedSafe();
+        explosion.rmin = 10.0f;
+        explosion.r = 15.0f;
+        explosion.rmax = 20.0f;
+        explosion.impulsivePressureAtR = 200.0f;
+
+        gEnv->pPhysicalWorld->SimulateExplosion(&explosion);
+
+        auto* pEffect = gEnv->pParticleManager->FindEffect("particles/pfx1/spaceship/destruction/explosion.pfx", "CBullet::HandleEvent::FindEffect");
+        if (pEffect)
+        {
+            pEffect->Spawn(true, IParticleEffect::ParticleLoc(physCollision->pt, physCollision->n, 2.0f));
+        }
 
 		// Queue removal of this entity, unless it has already been done
 		gEnv->pEntitySystem->RemoveEntity(GetEntityId());
