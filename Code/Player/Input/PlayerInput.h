@@ -66,6 +66,8 @@ protected:
 	bool OnActionMoveBack(EntityId entityId, const ActionId& actionId, int activationMode, float value);
 
 	bool OnActionShoot(EntityId entityId, const ActionId& actionId, int activationMode, float value);
+	bool OnActionScrollUp(EntityId entityId, const ActionId& actionId, int activationMode, float value);
+	bool OnActionScrollDown(EntityId entityId, const ActionId& actionId, int activationMode, float value);
 
 protected:
 	CPlayer *m_pPlayer;

@@ -41,7 +41,8 @@ public:
 
 		float m_playerEyeHeight;
 
-		float m_viewDistanceFromPlayer;
+		float m_viewDistanceZ;
+		float m_viewDistanceY;
 		
 		ICVar *m_pThirdPersonMannequinContext;
 		ICVar *m_pThirdPersonAnimationDatabase;
@@ -65,6 +66,7 @@ public:
 
 	CPlayerInput *GetInput() const { return m_pInput; }
 	CPlayerMovement *GetMovement() const { return m_pMovement; }
+	CPlayerView *GetView() const { return m_pView; }
 
 	ISimpleWeapon *GetCurrentWeapon() const { return m_pCurrentWeapon; }
 	CTurret *GetTurret() const { return m_pTurret; }

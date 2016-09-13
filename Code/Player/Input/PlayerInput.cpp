@@ -195,6 +195,8 @@ void CPlayerInput::InitializeActionHandler()
 	m_actionHandler.AddHandler(ActionId("moveback"), &CPlayerInput::OnActionMoveBack);
 
 	m_actionHandler.AddHandler(ActionId("shoot"), &CPlayerInput::OnActionShoot);
+	m_actionHandler.AddHandler(ActionId("scroll_up"), &CPlayerInput::OnActionScrollUp);
+	m_actionHandler.AddHandler(ActionId("scroll_down"), &CPlayerInput::OnActionScrollDown);
 }
 
 void CPlayerInput::OnAction(const ActionId &action, int activationMode, float value)
@@ -244,5 +246,23 @@ bool CPlayerInput::OnActionShoot(EntityId entityId, const ActionId& actionId, in
 		pWeapon->RequestFire(bulletOrigin.t, bulletOrigin.q);
 	}
 
+	return true;
+}
+
+bool CPlayerInput::OnActionScrollUp(EntityId entityId, const ActionId & actionId, int activationMode, float value)
+{
+	if (activationMode == eIS_Pressed)
+	{
+		m_pPlayer->GetView()->Zoom(true);
+	}
+	return true;
+}
+
+bool CPlayerInput::OnActionScrollDown(EntityId entityId, const ActionId & actionId, int activationMode, float value)
+{
+	if (activationMode == eIS_Pressed)
+	{
+		m_pPlayer->GetView()->Zoom(false);
+	}
 	return true;
 }

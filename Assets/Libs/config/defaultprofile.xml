@@ -19,5 +19,8 @@
 		<action name="mouse_rotatepitch" keyboard="maxis_y" />
 		
 		<action name="shoot" onPress="1" onRelease="1" retriggerable="1" keyboard="mouse1"/>
+		
+		<action name="scroll_up" onPress="1" onRelease="1" retriggerable="1" keyboard="mwheel_up"/>
+		<action name="scroll_down" onPress="1" onRelease="1" retriggerable="1" keyboard="mwheel_down"/>
 	</actionmap>  
 </profile>

@@ -26,6 +26,9 @@ public:
 	virtual void PostUpdateView(SViewParams &viewParams) override {}
 	// ~IGameObjectView
 
+	void Zoom(bool bZoomIn);
+
 protected:
 	CPlayer *m_pPlayer;
+	float m_fZoomRatio;
 };
