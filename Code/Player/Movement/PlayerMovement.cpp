@@ -9,6 +9,9 @@ CPlayerMovement::CPlayerMovement()
 {
 	m_pLeftTread = new CTankTread(3000, Vec2(-1.5f, 0));
 	m_pRightTread = new CTankTread(3000, Vec2(1.5f, 0));
+
+	m_qQueuedRotation.SetIdentity();
+	m_qQueuedTurretRotation.SetIdentity();
 }
 
 CPlayerMovement::~CPlayerMovement()
@@ -90,13 +93,14 @@ void CPlayerMovement::ProcessEvent(SEntityEvent & event)
 	switch (event.event)
 	{
 	case ENTITY_EVENT_PREPHYSICSUPDATE:
-		if (m_qQueuedRotation.IsValid())
+		if (m_qQueuedRotation.IsValid() && !m_qQueuedRotation.IsIdentity())
 		{
 			GetEntity()->SetRotation(m_qQueuedRotation, ENTITY_XFORM_USER | ENTITY_XFORM_NOT_REREGISTER);
 		}
-		if (m_qQueuedTurretRotation.IsValid())
+		auto* pCharacter = m_pPlayer->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson);
+		if (m_qQueuedTurretRotation.IsValid() && !m_qQueuedTurretRotation.IsIdentity() && pCharacter)
 		{
-			IAttachment* pAttachment = m_pPlayer->GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
+			IAttachment* pAttachment = pCharacter->GetIAttachmentManager()->GetInterfaceByName("turret");
 			if (pAttachment)
 			{
 				pAttachment->SetAttAbsoluteDefault(m_qQueuedTurretRotation);
@@ -153,7 +157,7 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
     //Quat newRotation = prevRotation * turnRot * Quat::CreateRotationVDir(slopeProjection);
     
     newRotation = prevRotation * turnRot;// *Quat::CreateRotationVDir(slopeProjection);
-    newRotation.Normalize();
+    newRotation.NormalizeSafe();
 
 	m_qQueuedRotation = newRotation;
 
@@ -168,7 +172,7 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
 		//Quat deltaRot = Quat::CreateRotationZ(DEG2RAD(90));
 		Quat targetRot = Quat::CreateRotationZ(atan2(-dir.x, dir.y) - m_qQueuedRotation.GetRotZ());
 		Quat newRot = Quat::CreateSlerp(oldTransRot.q, targetRot, frameTime * 10);
-		oldTransRot.q = newRot;
+		oldTransRot.q = newRot.GetNormalizedSafe();
 		m_qQueuedTurretRotation = oldTransRot;
 	}
 	
@@ -221,8 +225,11 @@ void CPlayerMovement::UpdateMovementRequest(float frameTime, IPhysicalEntity &ph
 
     moveAction.dir = m_vecVelocity + (forwardAcceleration - frictionDeceleration - dragDeceleration + gravityAcceleration);
 
-    // Dispatch the movement request
-    physicalEntity.Action(&moveAction);
+	if (moveAction.dir.IsValid())
+	{
+		// Dispatch the movement request
+		physicalEntity.Action(&moveAction);
+	}
 }
 
 Vec3 CPlayerMovement::GetLocalMoveDirection() const
