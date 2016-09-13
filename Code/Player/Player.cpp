@@ -46,8 +46,6 @@ class CPlayerRegistrator
 		REGISTER_CVAR2("pl_eyeHeight", &m_playerEyeHeight, 0.935f, VF_CHEAT, "Height of the player's eyes from ground");
 
 		REGISTER_CVAR2("pl_viewDistanceFromPlayer", &m_viewDistanceFromPlayer, 20.f, VF_CHEAT, "Camera distance from player");
-
-		m_pThirdPersonGeometry = REGISTER_STRING("pl_thirdPersonGeometry", "Objects/tanks/tank_generic_blue.cdf", VF_CHEAT, "Sets the third person geometry to load");
 		
 		m_pThirdPersonMannequinContext = REGISTER_STRING("pl_thirdPersonMannequinContext", "FirstPersonCharacter", VF_CHEAT, "The name of the third person context used in Mannequin");
 		m_pThirdPersonAnimationDatabase = REGISTER_STRING("pl_thirdPersonAnimationDatabase", "Animations/Mannequin/ADB/FirstPerson.adb", VF_CHEAT, "Path to the animation database file to load");
@@ -65,6 +63,8 @@ CPlayer::CPlayer()
 	, m_bIsLocalClient(false)
 	, m_pCurrentWeapon(nullptr)
 	, m_pTurret(nullptr)
+	, m_iTeamID(0)
+	, m_strTeamName("blue")
 {
 }
 
@@ -76,6 +76,21 @@ CPlayer::~CPlayer()
 const CPlayer::SExternalCVars &CPlayer::GetCVars() const
 {
 	return g_playerRegistrator;
+}
+
+void CPlayer::SetTeamID(int iTeamID)
+{
+	m_iTeamID = iTeamID;
+	if (iTeamID == 0)
+	{
+		m_strTeamName = "blue";
+	}
+	else if (iTeamID == 1)
+	{
+		m_strTeamName = "red";
+	}
+	else
+		CryFatalError("invalid team id: %i", iTeamID);
 }
 
 bool CPlayer::Init(IGameObject *pGameObject)
@@ -204,7 +219,7 @@ void CPlayer::SelectSpawnPoint()
 void CPlayer::SetPlayerModel()
 {
 	// Load the third person model
-	GetEntity()->LoadCharacter(eGeometry_ThirdPerson, GetCVars().m_pThirdPersonGeometry->GetString());
+	GetEntity()->LoadCharacter(eGeometry_ThirdPerson, "Objects/tanks/tank_generic_" + GetTeamName() + ".cdf");
 
     IAttachment* pAttachment = GetEntity()->GetCharacter(CPlayer::eGeometry_ThirdPerson)->GetIAttachmentManager()->GetInterfaceByName("turret");
     if (pAttachment)
@@ -225,8 +240,9 @@ void CPlayer::SetPlayerModel()
 			// Obtain our ISimpleWeapon implementation, based on IGameObjectExtension
 			if (auto *pTurret = pGameObject->QueryExtension("Turret"))
 			{
-				// Set the equipped weapon
 				m_pTurret = static_cast<CTurret *>(pTurret);
+				m_pTurret->SetPlayer(this);
+				m_pTurret->ResetModel();
 			}
 			else
 			{

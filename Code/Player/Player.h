@@ -42,8 +42,6 @@ public:
 		float m_playerEyeHeight;
 
 		float m_viewDistanceFromPlayer;
-
-		ICVar *m_pThirdPersonGeometry;
 		
 		ICVar *m_pThirdPersonMannequinContext;
 		ICVar *m_pThirdPersonAnimationDatabase;
@@ -75,6 +73,10 @@ public:
 
 	const SExternalCVars &GetCVars() const;
 
+	void SetTeamID(int iTeamID);
+	int GetTeamID() { return m_iTeamID; }
+	string GetTeamName() { return m_strTeamName; }
+
 protected:
 	void SelectSpawnPoint();
 	void SetPlayerModel();
@@ -90,6 +92,9 @@ protected:
 
 	bool m_bIsLocalClient;
 	bool m_bAlive;
+
+	int m_iTeamID;
+	string m_strTeamName;
 
 	// Pointer to the weapon the player is currently using
 	ISimpleWeapon *m_pCurrentWeapon;

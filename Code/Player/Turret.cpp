@@ -18,7 +18,6 @@ class CTurretRegistrator
 	}
 
 public:
-
 	float m_mass;
 };
 
@@ -26,12 +25,7 @@ CTurretRegistrator g_turretRegistrator;
 
 void CTurret::PostInit(IGameObject *pGameObject)
 {
-	// Set the model
-	const int geometrySlot = 0;
-
-	//LoadMesh(geometrySlot, "Objects/tanks/turret_heavy.chr");
-	GetEntity()->LoadCharacter(geometrySlot, "Objects/tanks/turret_heavy.chr");
-
+	ResetModel();
 	// Now create the physical representation of the entity
 	Physicalize();
 
@@ -45,6 +39,24 @@ void CTurret::PostInit(IGameObject *pGameObject)
 
 void CTurret::HandleEvent(const SGameObjectEvent &event)
 {
+}
+
+void CTurret::ResetModel()
+{
+	// Set the model
+	const int geometrySlot = 0;
+
+	//LoadMesh(geometrySlot, "Objects/tanks/turret_heavy.chr");
+	GetEntity()->LoadCharacter(geometrySlot, "Objects/tanks/turret_heavy.chr");
+	if (m_pPlayer != nullptr)
+	{
+		auto* pMaterial = gEnv->p3DEngine->GetMaterialManager()->FindMaterial("objects/tanks/tank_turrets_" + m_pPlayer->GetTeamName());
+
+		if (pMaterial)
+		{
+			GetEntity()->SetMaterial(pMaterial);
+		}
+	}
 }
 
 void CTurret::Physicalize()
