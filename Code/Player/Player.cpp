@@ -196,6 +196,8 @@ void CPlayer::SelectSpawnPoint()
 	auto *pSpawnerClass = gEnv->pEntitySystem->GetClassRegistry()->FindClass("SpawnPoint");
 	auto extensionId = gEnv->pGame->GetIGameFramework()->GetIGameObjectSystem()->GetID("SpawnPoint");
 
+    std::vector<CSpawnPoint*> spawnPoints;
+
 	while (!pEntityIterator->IsEnd())
 	{
 		IEntity *pEntity = pEntityIterator->Next();
@@ -211,10 +213,15 @@ void CPlayer::SelectSpawnPoint()
 		if (pSpawner == nullptr)
 			continue;
 
-		pSpawner->SpawnEntity(*GetEntity());
-
-		break;
+        spawnPoints.push_back(pSpawner);
 	}
+
+    if (spawnPoints.size() > 0)
+    {
+        std::random_shuffle(spawnPoints.begin(), spawnPoints.end());
+        CSpawnPoint* pSpawnPoint = spawnPoints.at(0);
+        pSpawnPoint->SpawnEntity(*GetEntity());
+    }
 }
 
 void CPlayer::SetPlayerModel()
