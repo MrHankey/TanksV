@@ -85,10 +85,10 @@ void CBullet::HandleEvent(const SGameObjectEvent &event)
         explosion.epicenter = physCollision->pt;
         explosion.epicenterImp = explosion.epicenter;
         explosion.explDir = physCollision->vloc[0].GetNormalizedSafe();
-        explosion.rmin = 10.0f;
-        explosion.r = 15.0f;
-        explosion.rmax = 20.0f;
-        explosion.impulsivePressureAtR = 200.0f;
+        explosion.rmin = 1.0f;
+        explosion.r = 2.0f;
+        explosion.rmax = 5.0f;
+        explosion.impulsivePressureAtR = 100.0f;
 
         gEnv->pPhysicalWorld->SimulateExplosion(&explosion);
 
