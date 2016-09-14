@@ -36,4 +36,23 @@ void CRifle::RequestFire(const Vec3 &initialBulletPosition, const Quat &initialB
 
 	// Spawn the entity, bullet is propelled in CBullet based on the rotation and position here
 	gEnv->pEntitySystem->SpawnEntity(spawnParams);
+
+    
+    AudioControlId audioTriggerId;
+    gEnv->pAudioSystem->GetAudioTriggerId("cannon_fire_explosion", audioTriggerId);
+    if (audioTriggerId != INVALID_AUDIO_CONTROL_ID)
+    {
+
+        IAudioProxy* const pIAudioProxy(gEnv->pAudioSystem->GetFreeAudioProxy());
+
+        if (pIAudioProxy != nullptr)
+        {
+            pIAudioProxy->Initialize("BulletFireAudioObject");
+            pIAudioProxy->SetOcclusionType(eAudioOcclusionType_Low);
+            pIAudioProxy->SetPosition(initialBulletPosition);
+            pIAudioProxy->SetCurrentEnvironments();
+            pIAudioProxy->ExecuteTrigger(audioTriggerId);
+            pIAudioProxy->Release();
+        }
+    }
 }

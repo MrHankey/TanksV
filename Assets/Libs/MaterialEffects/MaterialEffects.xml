@@ -39,6 +39,11 @@
    <Column ss:AutoFitWidth="0" ss:Width="78"/>
    <Column ss:AutoFitWidth="0" ss:Width="105"/>
    <Column ss:AutoFitWidth="0" ss:Width="93"/>
+   <Column ss:AutoFitWidth="0" ss:Width="94.5"/>
+   <Column ss:Width="87" ss:Span="2"/>
+   <Column ss:Index="8" ss:Width="54.75"/>
+   <Column ss:Width="87"/>
+   <Column ss:Index="11" ss:Width="87" ss:Span="2"/>
    <Row ss:AutoFitHeight="0">
     <Cell ss:Index="2"><Data ss:Type="String">mat_default</Data></Cell>
     <Cell><Data ss:Type="String">mat_bullet</Data></Cell>
@@ -58,6 +63,14 @@
    </Row>
    <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="String">mat_bullet</Data></Cell>
+    <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
+    <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
+    <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
+    <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
+    <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
+    <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">collision:bullet_hit</Data></Cell>
+    <Cell ss:Index="11"><Data ss:Type="String">collision:bullet_hit</Data></Cell>
     <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
     <Cell><Data ss:Type="String">collision:bullet_hit</Data></Cell>
    </Row>
@@ -103,7 +116,7 @@
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveCol>12</ActiveCol>
+     <ActiveRow>2</ActiveRow>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
